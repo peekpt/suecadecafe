@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sueca no Café</string>
+    <string name="channel_mesa">Mesa aberta</string>
+    <string name="channel_mesa_desc">Avisa enquanto o telemóvel serve mesas de sueca na rede local.</string>
+    <string name="notif_titulo">Mesa de sueca aberta</string>
+    <string name="notif_em">Os outros jogam em %1$s</string>
+    <string name="notif_sem_wifi">Sem wi-fi: liga-o para os outros entrarem</string>
+    <string name="notif_parar">Parar</string>
 </resources>

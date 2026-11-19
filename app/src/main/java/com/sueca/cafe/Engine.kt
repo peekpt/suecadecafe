@@ -39,11 +39,11 @@ val TEAMS = mapOf(
 )
 
 data class Rules(
-    val virarTrunfo: Boolean = true,
-    val trunfarSeVazio: Boolean = false,
-    val subirSempre: Boolean = false,
-    val jogosParaGanhar: Int = 4,
-    val bandeiraFecha: Boolean = true,
+    var virarTrunfo: Boolean = true,
+    var trunfarSeVazio: Boolean = false,
+    var subirSempre: Boolean = false,
+    var jogosParaGanhar: Int = 4,
+    var bandeiraFecha: Boolean = true,
 )
 
 fun suitOf(card: String) = card.substring(0, 1)
