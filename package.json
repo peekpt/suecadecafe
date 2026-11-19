@@ -1,0 +1,23 @@
+{
+  "name": "sueca-no-cafe",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sueca a 4 jogadores (2 equipas), com regras de Portugal, no Wi-Fi do café.",
+  "scripts": {
+    "start": "node server.mjs",
+    "build:avatars": "esbuild tools/avatars-entry.js --bundle --minify --format=iife --outfile=web/vendor/avatars.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "@dicebear/adventurer": "^9.4.2",
+    "@dicebear/avataaars": "^9.4.2",
+    "@dicebear/bottts": "^9.4.2",
+    "@dicebear/core": "^9.4.3",
+    "@dicebear/micah": "^9.4.2",
+    "@dicebear/open-peeps": "^9.4.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

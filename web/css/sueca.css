@@ -1,0 +1,339 @@
+/* ═══ Sueca no Café — mesa, cartas e equipas (por cima do tema das Damas) ═══ */
+
+/* ── herói da entrada ── */
+.hero-cards { width: 168px; height: 122px; position: relative; }
+.hero .display { font-size: 2.15rem; }
+.hc { transform-origin: 50% 90%; }
+.hc1 { animation: card-sway 4.2s ease-in-out infinite; }
+.hc2 { animation: card-sway 4.2s ease-in-out infinite reverse; }
+.hc3 { animation: card-sway 5.1s ease-in-out infinite; }
+@keyframes card-sway {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(-2.5deg); }
+}
+.hero .hero-steam path { animation: steam-rise 3s ease-in-out infinite; }
+.hero .hero-steam path:nth-child(2) { animation-delay: .9s; }
+
+/* ── cartas ── */
+.cc {
+  position: relative; flex: none;
+  width: clamp(50px, 16.5vw, 66px); aspect-ratio: 5 / 7;
+  background: #fffdf6; border: 2.5px solid var(--espresso); border-radius: 11px;
+  box-shadow: var(--ink-shadow-sm);
+  display: grid; grid-template-rows: auto 1fr;
+  font-family: var(--body); color: var(--espresso);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .2s;
+  user-select: none; -webkit-user-select: none;
+}
+.cc.s-c, .cc.s-o { color: var(--red); }
+button.cc { padding: 0; cursor: pointer; appearance: none; -webkit-appearance: none; font: inherit; text-align: initial; }
+button.cc.dim { cursor: default; }
+button.cc:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+/* cabeçalho: o valor encosta ao canto esquerdo, o naipe ao direito, e o corpo
+   fica todo para a figura — é o desenho do baralho do Paciência */
+.cc-hd {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 2px;
+  padding: 3px 5px 0 6px; font-weight: 800; line-height: 1;
+}
+.cc-hd b { font-size: 1.24rem; letter-spacing: -.5px; }
+.cc-hd i { font-style: normal; font-size: 1.05rem; }
+.cc-mid { display: grid; place-items: center; min-height: 0; line-height: 1; padding: 0 3px 4px; }
+.cc-pip { font-size: 2.3rem; }
+.cc-pip.ace { font-size: 2.75rem; }
+/* figuras desenhadas: Rei, Dama e Valete */
+.cc-art { width: 88%; height: auto; display: block; stroke-linejoin: round; stroke-linecap: round; }
+.cc-art .a-face { fill: #ffe3c2; stroke: var(--espresso); stroke-width: 2; }
+.cc-art .a-hair { fill: var(--coffee); stroke: var(--espresso); stroke-width: 1.6; }
+.cc-art .a-crown { fill: var(--amber); stroke: var(--espresso); stroke-width: 2; }
+.cc-art .a-body { fill: currentColor; stroke: var(--espresso); stroke-width: 2; opacity: .92; }
+.cc-art .a-dot { fill: var(--espresso); }
+.cc-art .a-line { fill: none; stroke: var(--espresso); stroke-width: 1.8; }
+.cc-val {
+  position: absolute; right: 3px; bottom: 2px; font-family: var(--display); font-weight: 400;
+  font-size: .66rem; color: var(--espresso); background: var(--amber);
+  border: 2px solid var(--espresso); border-radius: 6px; padding: 0 3px; line-height: 1.25;
+}
+.cc-who {
+  position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%);
+  font-size: .58rem; font-weight: 800; background: var(--espresso); color: var(--paper);
+  border-radius: 6px; padding: 0 4px; white-space: nowrap;
+}
+.cc.trump { background: #fff3d8; box-shadow: var(--ink-shadow-sm), 0 0 0 2px var(--amber); }
+.cc.playable { cursor: pointer; }
+.cc.playable:hover { transform: translateY(-4px); }
+.cc.playable:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--espresso); }
+.cc.dim { opacity: .42; filter: grayscale(.6); }
+.cc.pick { transform: translateY(-10px) rotate(-2deg); box-shadow: 4px 8px 0 rgba(42, 23, 16, .25); }
+.cc.fresh { animation: card-in .28s cubic-bezier(.34, 1.56, .64, 1) backwards; }
+@keyframes card-in { from { transform: translateY(14px) rotate(6deg) scale(.9); opacity: 0; } }
+.cc.mine-turn { outline: 3px dashed var(--matcha-deep); outline-offset: 3px; }
+
+/* ── marcador ── */
+.score-strip {
+  display: flex; align-items: center; gap: 8px; padding: 9px 10px;
+}
+.ss-team { display: flex; align-items: center; gap: 7px; flex: 1; min-width: 0; }
+.ss-team.right { justify-content: flex-end; }
+.ss-name { font-weight: 800; font-size: .85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ss-games { display: flex; gap: 3px; }
+.tally { width: 7px; height: 18px; border-radius: 3px; background: rgba(42, 23, 16, .14); }
+.tally.on { background: var(--amber); box-shadow: inset 0 0 0 2px var(--espresso); }
+.tally.on.b { background: var(--blue); }
+.ss-pts { font-family: var(--display); font-size: 1.15rem; color: var(--coffee); min-width: 2ch; text-align: center; }
+.ss-mid { text-align: center; display: grid; gap: 1px; flex: none; }
+.ss-hand { font-weight: 800; font-size: .78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--amber-deep); }
+.ss-need { font-size: .68rem; font-weight: 700; color: var(--coffee); opacity: .8; }
+
+/* ── ritmo da página: todos os blocos com o mesmo afastamento e o mesmo friso ── */
+#screen-game { display: grid; gap: 10px; align-content: start; }
+#screen-game > * { margin: 0; }
+.pane {
+  display: grid; gap: 6px; padding: 9px 10px;
+  background: var(--paper); border: 3px solid var(--espresso);
+  border-radius: var(--r); box-shadow: var(--ink-shadow-sm);
+}
+
+/* ── mesa ── */
+.table-frame {
+  position: relative; width: min(100%, 460px, 58vh); margin-inline: auto;
+  /* o reset de margens do #screen-game ganha em especificidade: centrar pela grelha */
+  justify-self: center;
+  border: 4px solid var(--espresso); border-radius: var(--r);
+  padding: 8px; background: linear-gradient(160deg, #8a5a34, #6b4226 60%, #7c4f2c);
+  box-shadow: var(--ink-shadow);
+}
+/* quadrada: o pano é um quadro e as cartas encostam-se às cadeiras.
+   As medidas são percentagens do próprio pano — num telemóvel pequeno o
+   pano encolhe e as cartas encolhem com ele, por isso nunca se tocam. */
+.table-felt {
+  --tw: clamp(48px, 18%, 72px); --th: calc(var(--tw) * 1.4);
+  --chip: 44px; --chipw: clamp(56px, 16%, 66px); --beira: 6px;
+  position: relative; aspect-ratio: 1 / 1; border-radius: 13px;
+  background: radial-gradient(circle at 50% 42%, #93c17c, var(--matcha) 62%, var(--matcha-deep));
+  border: 3px dashed rgba(42, 23, 16, .35); overflow: hidden;
+}
+.table-felt::before, .table-felt::after {
+  content: ''; position: absolute; border: 6px solid rgba(74, 44, 26, .16); border-radius: 50%;
+}
+.table-felt::before { width: 90px; height: 90px; left: -22px; top: -26px; }
+.table-felt::after { width: 62px; height: 62px; right: 12px; bottom: -18px; }
+
+/* ── cadeiras ── */
+.seat {
+  position: absolute; z-index: 3; display: flex; align-items: center; gap: 7px;
+  background: rgba(255, 248, 234, .95); border: 2.5px solid var(--espresso); border-radius: 15px;
+  padding: 3px 9px 3px 3px; box-shadow: 2px 2px 0 rgba(42, 23, 16, .45);
+  font-size: .78rem; font-weight: 800; max-width: 48%;
+}
+.seat .seat-face {
+  position: relative; flex: none; width: 31px; height: 31px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 1.05rem; line-height: 1;
+  background: var(--paper); border: 2.5px solid var(--espresso); overflow: hidden;
+}
+.seat .seat-face .av-emoji { font-size: 1.05rem; }
+.seat.team-a .seat-face { background: #ffe9c6; }
+.seat.team-b .seat-face { background: #dfeaff; }
+.seat .seat-body { display: grid; gap: 1px; min-width: 0; }
+.seat .s-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 10ch; font-size: .8rem; line-height: 1.1; }
+.seat .s-meta { display: flex; align-items: center; gap: 4px; font-size: .58rem; font-weight: 800; line-height: 1; color: var(--coffee); }
+.seat .s-tag { font-weight: 800; padding: 1px 5px; border-radius: 999px; border: 1.5px solid var(--espresso); }
+.seat.team-a .s-tag { background: var(--amber); }
+.seat.team-b .s-tag { background: var(--blue); color: #fff; }
+.seat.auto .s-tag { background: var(--grape); color: #fff; }
+.seat .s-cards { display: inline-flex; align-items: center; gap: 3px; padding: 1px 5px 1px 4px; border-radius: 999px; background: rgba(74, 44, 26, .12); }
+.seat .s-cards i {
+  font-style: normal; width: 8px; height: 11px; border-radius: 2px; border: 1.5px solid var(--espresso);
+  background: repeating-linear-gradient(45deg, #6b4226 0 3px, #4a2c1a 3px 6px);
+}
+.seat .s-turn { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--amber); border: 1.5px solid var(--espresso); }
+.seat .s-host { position: absolute; top: -11px; left: -5px; font-size: .82rem; filter: drop-shadow(1px 1px 0 rgba(42, 23, 16, .5)); }
+/* quem tem a vez: um halo âmbar que enche e esvazia devagar, com a cadeira a
+   levantar apenas 1px. O movimento usa "translate" e não "transform" porque os
+   lugares do topo e da base já usam transform para se centrarem. */
+.seat.turn { animation: pulse-seat 2.8s ease-in-out infinite; }
+@keyframes pulse-seat {
+  0%, 100% { translate: 0 0; box-shadow: 0 0 0 2px rgba(240, 166, 60, .5), 2px 2px 0 rgba(42, 23, 16, .45); }
+  50% { translate: 0 -1px; box-shadow: 0 0 0 4px rgba(240, 166, 60, .9), 2px 2px 0 rgba(42, 23, 16, .45); }
+}
+.seat.gone { opacity: .6; filter: grayscale(.45); }
+.seat-top { top: var(--beira); left: 50%; transform: translateX(-50%); }
+.seat-bottom { bottom: var(--beira); left: 50%; transform: translateX(-50%); }
+/* nas lateras a cadeira é em pé: fica estreita e deixa o meio do pano livre
+   para as cartas da vaza */
+.seat-left, .seat-right {
+  flex-direction: column; gap: 2px; padding: 3px 4px 4px; max-width: var(--chipw);
+  top: 50%; transform: translateY(-50%);
+}
+.seat-left { left: var(--beira); }
+.seat-right { right: var(--beira); }
+.seat-left .seat-body, .seat-right .seat-body { justify-items: center; text-align: center; gap: 2px; }
+.seat-left .s-meta, .seat-right .s-meta { flex-direction: column; gap: 2px; align-items: center; }
+.seat-left .s-name, .seat-right .s-name { font-size: .66rem; max-width: 9ch; }
+
+/* ── a carta virada, encostada à cadeira de quem deu ──
+   É só a carta: sem painel nem etiqueta, ela já se identifica pelo brilho de trunfo. */
+.turned { position: absolute; z-index: 4; display: none; }
+.turned.on { display: block; }
+.turned.at-bottom { left: var(--beira); bottom: var(--beira); }
+.turned.at-right { right: var(--beira); bottom: var(--beira); }
+.turned.at-top { right: var(--beira); top: var(--beira); }
+.turned.at-left { left: var(--beira); top: var(--beira); }
+.cc.mini { width: 34px; border-radius: 7px; border-width: 2px; }
+.cc.mini .cc-hd { padding: 2px 3px 0 3px; }
+.cc.mini .cc-hd b { font-size: .82rem; }
+.cc.mini .cc-hd i { font-size: .7rem; }
+.cc.mini .cc-pip { font-size: 1.25rem; }
+.cc.mini .cc-pip.ace { font-size: 1.4rem; }
+.cc.mini .cc-art { width: 92%; }
+
+/* ── a vaza: cruz centrada, cada carta colada à sua cadeira ── */
+.trick { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.trick-slot { position: absolute; width: var(--tw); height: var(--th); display: grid; place-items: center; }
+#tsTop { left: 50%; top: calc(var(--chip) + var(--beira) + 4px); translate: -50% 0; }
+#tsBottom { left: 50%; bottom: calc(var(--chip) + var(--beira) + 4px); translate: -50% 0; }
+#tsLeft { top: 50%; left: calc(var(--chipw) + var(--beira) + 4px); translate: 0 -50%; }
+#tsRight { top: 50%; right: calc(var(--chipw) + var(--beira) + 4px); translate: 0 -50%; }
+/* 100% da casa: o clamp de --tw com % resolveria contra a casa, não contra o pano */
+.trick-slot .cc { width: 100%; }
+/* o "sprite" só salta na casa quando a carta jogada é trunfo;
+   as outras limitam-se a deslizar até à mesa */
+.trick-slot.pop { animation: land .3s cubic-bezier(.34, 1.56, .64, 1); }
+@keyframes land { 0% { transform: scale(.7); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }
+.trick-center {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  display: grid; place-items: center; gap: 1px; text-align: center; max-width: 40%;
+}
+.trick-center .tc-turn {
+  font-family: var(--display); font-weight: 400; font-size: .9rem; color: #1f3a18;
+  text-shadow: 1px 1px 0 rgba(255, 248, 234, .5);
+}
+.trick-center .tc-note { font-size: .66rem; font-weight: 800; color: rgba(31, 58, 24, .75); }
+
+/* ── mão do jogador ── */
+.hand-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.hand-hint { font-size: .74rem; font-weight: 800; color: var(--coffee); opacity: .85; }
+.trump-wrap { display: flex; align-items: center; gap: 6px; }
+.trump-chip {
+  display: inline-flex; align-items: center; gap: 4px; font-size: .8rem; font-weight: 800;
+  background: var(--paper); border: 3px solid var(--espresso); border-radius: 999px;
+  padding: 2px 9px 2px 6px; box-shadow: var(--ink-shadow-sm);
+}
+.trump-chip b { font-size: .62rem; text-transform: uppercase; letter-spacing: 1px; }
+.trump-chip.s-c, .trump-chip.s-o { color: var(--red); }
+.hand {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 5px;
+  padding: 2px 0 0; min-height: 78px;
+}
+.hand.waiting { opacity: .5; }
+
+/* ── registo das vazas ── */
+.log-head { display: flex; align-items: center; gap: 8px; }
+.log-title { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--amber-deep); }
+.log-seg {
+  display: inline-flex; margin-left: auto; background: var(--paper);
+  border: 2.5px solid var(--espresso); border-radius: 999px; overflow: hidden;
+  box-shadow: var(--ink-shadow-sm);
+}
+.log-seg button {
+  font: inherit; font-size: .68rem; font-weight: 800; color: var(--coffee);
+  padding: 3px 10px; border: 0; background: transparent; cursor: pointer;
+}
+.log-seg button.sel { background: var(--amber); color: var(--espresso); }
+.trick-log { display: flex; flex-direction: column; gap: 4px; }
+.trick-log.solo { gap: 0; }
+.trick-log.solo .tl-row { font-size: .84rem; }
+.trick-log.solo .tl-mini { font-size: .84rem; padding: 1px 5px; }
+.trick-log.solo .tl-n { font-size: .82rem; }
+.tl-row { display: flex; align-items: center; gap: 7px; font-size: .76rem; font-weight: 700; color: var(--coffee); }
+.tl-row .tl-n { font-family: var(--display); font-size: .74rem; color: var(--amber-deep); min-width: 2.2ch; }
+.tl-row .tl-cards { display: flex; gap: 2px; flex-wrap: wrap; }
+.tl-mini { border: 2px solid var(--espresso); border-radius: 4px; background: var(--paper); padding: 0 3px; font-size: .72rem; }
+.tl-mini.win { background: var(--amber); }
+.tl-mini.s-c, .tl-mini.s-o { color: var(--red); }
+.tl-row .tl-pts { margin-left: auto; font-weight: 800; }
+
+/* ── equipa / lobby ── */
+.team-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0 4px; }
+.tp-btn {
+  border: 3px solid var(--espresso); border-radius: var(--r); background: var(--cream);
+  padding: 10px 8px; cursor: pointer; text-align: center; box-shadow: var(--ink-shadow-sm);
+  transition: transform .12s;
+}
+.tp-btn:hover { transform: translateY(-2px); }
+.tp-btn.sel { background: #fff; box-shadow: 0 0 0 3px var(--amber), var(--ink-shadow-sm); }
+.tp-btn.full { opacity: .45; cursor: not-allowed; }
+.tp-dot { width: 15px; height: 15px; border-radius: 50%; border: 2.5px solid var(--espresso); display: inline-block; margin-right: 5px; vertical-align: -2px; }
+.tp-name { font-family: var(--display); font-weight: 400; font-size: 1.05rem; color: var(--coffee); display: block; }
+.tp-help { font-size: .68rem; font-weight: 700; opacity: .8; display: block; }
+.lobby-teams { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0 4px; }
+.lt-col { border: 3px solid var(--espresso); border-radius: 14px; padding: 8px; background: var(--cream); }
+.lt-head { display: flex; align-items: center; gap: 6px; font-weight: 800; font-size: .82rem; margin-bottom: 6px; }
+.lt-seat {
+  display: flex; align-items: center; gap: 6px; background: var(--paper);
+  border: 2.5px solid var(--espresso); border-radius: 10px; padding: 5px 7px; margin-bottom: 6px;
+  font-size: .8rem; font-weight: 800; min-height: 38px;
+}
+.lt-seat.empty { opacity: .5; border-style: dashed; font-weight: 700; }
+.lt-seat.me { box-shadow: 0 0 0 2.5px var(--amber); }
+.lt-seat .lp-avatar { width: 26px; height: 26px; font-size: .9rem; border-width: 2.5px; }
+.lt-seat .s-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.host-panel { margin-top: 14px; border-top: 3px dashed rgba(74, 44, 26, .3); padding-top: 6px; }
+.rules-toggles { display: grid; gap: 6px; margin: 6px 0 10px; }
+.rt-row {
+  display: flex; align-items: center; gap: 9px; background: var(--cream);
+  border: 2.5px solid var(--espresso); border-radius: 12px; padding: 7px 10px; cursor: pointer;
+  font-size: .82rem; font-weight: 800; text-align: left; font-family: var(--body); color: var(--espresso);
+}
+.rt-row .sw {
+  margin-left: auto; flex: none; width: 42px; height: 24px; border-radius: 999px;
+  border: 2.5px solid var(--espresso); background: var(--paper); position: relative;
+}
+.rt-row .sw::after {
+  content: ''; position: absolute; top: 1.5px; left: 2px; width: 16px; height: 16px;
+  border-radius: 50%; background: var(--coffee); transition: transform .15s;
+}
+.rt-row.on .sw { background: var(--matcha); }
+.rt-row.on .sw::after { transform: translateX(18px); background: #fff; }
+.rt-row small { display: block; font-weight: 700; opacity: .75; font-size: .7rem; }
+.target-row { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-bottom: 12px; }
+.tg-chip {
+  border: 2.5px solid var(--espresso); border-radius: 999px; background: var(--cream);
+  font-weight: 800; font-size: .8rem; padding: 4px 11px; cursor: pointer; font-family: var(--body); color: var(--espresso);
+}
+.tg-chip.sel { background: var(--amber); }
+
+/* ── resultados ── */
+.result-head { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 2.4rem; }
+.result-score { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; margin: 10px 0; }
+.rs-team { text-align: center; }
+.rs-pts { font-family: var(--display); font-size: 2.1rem; line-height: 1; }
+.rs-label { font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; opacity: .8; }
+.rs-x { font-weight: 800; color: var(--coffee); opacity: .5; }
+.rs-bar { height: 14px; border: 2.5px solid var(--espresso); border-radius: 999px; overflow: hidden; display: flex; background: var(--cream); margin: 6px 0 10px; }
+.rs-bar i { display: block; height: 100%; }
+.result-line { text-align: center; font-weight: 800; margin: 4px 0 12px; }
+.countdown { font-size: .74rem; font-weight: 800; color: var(--coffee); opacity: .75; text-align: center; }
+
+/* ── emotes a flutuar ── */
+#emoteLayer { position: fixed; inset: 0; pointer-events: none; z-index: 110; }
+.fly-emote {
+  position: absolute; font-size: 2rem; animation: fly-up 1.5s ease-out forwards;
+  filter: drop-shadow(2px 2px 0 rgba(42, 23, 16, .4));
+}
+@keyframes fly-up { to { transform: translateY(-90px) scale(1.4); opacity: 0; } }
+
+/* em cima do que já vem das Damas: aqui o registo é uma lista a pino */
+#trickLog { max-height: 154px; overflow-y: auto; overflow-x: hidden; display: block; padding: 0; min-height: 0; }
+/* a barra de rolagem também é do café, não a cinzenta do browser */
+#trickLog { scrollbar-width: thin; scrollbar-color: var(--coffee) var(--cream); }
+#trickLog::-webkit-scrollbar { width: 9px; }
+#trickLog::-webkit-scrollbar-track { background: var(--cream); border-radius: 9px; }
+#trickLog::-webkit-scrollbar-thumb { background: var(--coffee); border-radius: 9px; border: 2px solid var(--cream); }
+#trickLog::-webkit-scrollbar-thumb:hover { background: var(--espresso); }
+#trickLog .trick-log { width: 100%; }
+.game-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+
+@media (min-width: 560px) {
+  .app { max-width: 620px; }
+  .cc { width: 62px; }
+}

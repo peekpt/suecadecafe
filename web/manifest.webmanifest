@@ -1,0 +1,19 @@
+{
+  "name": "Sueca no Café",
+  "short_name": "Sueca",
+  "description": "Sueca a 4 jogadores, duas equipas, regras de Portugal, no Wi-Fi do café.",
+  "lang": "pt-PT",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6ead2",
+  "theme_color": "#2a1710",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

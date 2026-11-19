@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#2a1710">
+<title>Sueca no Café — sueca a 4, regras de Portugal</title>
+<meta name="description" content="Sueca para quatro jogadores em duas equipas, com regras de Portugal, no Wi-Fi do café. Cada um no seu telemóvel.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sueca">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='10' y='8' width='30' height='44' rx='5' fill='%23fff8ea' stroke='%232a1710' stroke-width='4'/%3E%3Crect x='26' y='14' width='30' height='44' rx='5' fill='%23f0a63c' stroke='%232a1710' stroke-width='4'/%3E%3Ctext x='41' y='45' font-size='24' text-anchor='middle' fill='%232a1710' font-family='sans-serif'%3E%E2%99%A0%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/sueca.css">
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="bg-decor" aria-hidden="true">
+  <div class="ring ring-a"></div>
+  <div class="ring ring-b"></div>
+  <div class="ring ring-c"></div>
+  <svg class="steam steam-a" viewBox="0 0 40 90"><path d="M20 85 C6 66 34 56 20 38 C8 22 30 14 22 2" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+  <svg class="steam steam-b" viewBox="0 0 40 90"><path d="M20 85 C6 66 34 56 20 38 C8 22 30 14 22 2" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+</div>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-cup" viewBox="0 0 48 48" aria-hidden="true">
+        <path class="cup-steam" d="M18 12 C14 8 22 6 18 2 M28 12 C24 8 32 6 28 2" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        <path d="M8 18 h28 v10 a12 12 0 0 1 -12 12 h-4 a12 12 0 0 1 -12 -12 z" fill="#f0a63c" stroke="#2a1710" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M36 20 h4 a5 5 0 0 1 0 10 h-4" fill="none" stroke="#2a1710" stroke-width="3"/>
+        <path d="M6 44 h36" stroke="#2a1710" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <h1>Sueca <em>no</em> Café</h1>
+    </div>
+    <div class="top-actions">
+      <span id="connChip" class="chip hidden"></span>
+      <button id="soundBtn" class="icon-btn" aria-label="Som ligado" aria-pressed="true">
+        <svg id="soundOnIcon" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8a5 5 0 0 1 0 8M18.5 5.5a9 9 0 0 1 0 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg id="soundOffIcon" class="hidden" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 9l6 6M22 9l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ══ ENTRADA ══ -->
+    <section id="screen-home" class="screen">
+      <div class="card hero enter">
+        <svg class="hero-cards" viewBox="0 0 150 110" aria-hidden="true">
+          <g class="hero-steam">
+            <path d="M64 26 C57 17 71 13 64 3" fill="none" stroke="#2a1710" stroke-width="5" stroke-linecap="round"/>
+            <path d="M82 26 C75 17 89 13 82 3" fill="none" stroke="#2a1710" stroke-width="5" stroke-linecap="round"/>
+          </g>
+          <g class="hc hc1"><rect x="6" y="26" width="44" height="64" rx="7" fill="#fff8ea" stroke="#2a1710" stroke-width="5" transform="rotate(-18 28 58)"/><text x="28" y="66" font-size="26" text-anchor="middle" fill="#2a1710">&#9827;</text></g>
+          <g class="hc hc3"><rect x="100" y="26" width="44" height="64" rx="7" fill="#fff8ea" stroke="#2a1710" stroke-width="5" transform="rotate(18 122 58)"/><text x="122" y="66" font-size="26" text-anchor="middle" fill="#e2503c">&#9829;</text></g>
+          <path d="M42 62 h54 v18 a22 22 0 0 1 -22 22 h-10 a22 22 0 0 1 -22 -22 z" fill="#f0a63c" stroke="#2a1710" stroke-width="6" stroke-linejoin="round"/>
+          <path d="M96 66 h7 a10 10 0 0 1 0 20 h-8" fill="none" stroke="#2a1710" stroke-width="6"/>
+          <ellipse cx="69" cy="62" rx="27" ry="7" fill="#4a2c1a" stroke="#2a1710" stroke-width="6"/>
+          <g class="hc hc2"><rect x="56" y="18" width="46" height="66" rx="7" fill="#fff8ea" stroke="#2a1710" stroke-width="5"/><text x="79" y="60" font-size="30" text-anchor="middle" fill="#2a1710">&#9824;</text></g>
+        </svg>
+        <h2 class="display">Sueca no Café</h2>
+        <p class="tagline">Quatro jogadores · duas equipas · regras de Portugal</p>
+      </div>
+
+      <div class="card enter d1">
+        <label class="lbl" for="nameInput">O teu nome</label>
+        <input id="nameInput" class="input" maxlength="14" placeholder="ex.: Zé do Café" autocomplete="off">
+        <span class="lbl">O teu avatar</span>
+        <div class="av-head">
+          <span id="avPreview" class="av-preview" aria-hidden="true"></span>
+          <span class="av-head-txt"><b id="avPreviewName">Jogador</b><small id="avPreviewTag">Bonecos · hipótese 1</small><small>é assim que te vão ver à mesa</small></span>
+          <button id="btnAvRandom" class="btn btn-small" type="button">🎲 escolhe por mim</button>
+        </div>
+        <div id="avatarGroups" class="av-groups"></div>
+        <p class="help av-note">Oito bonecos numa fila, todos desenhados a partir do teu nome. À mesa viaja só o número e o nome: cada telemóvel calcula o resto.</p>
+      </div>
+
+      <div class="home-actions enter d2">
+        <button id="btnCreate" class="btn btn-primary btn-big">
+          <svg viewBox="0 0 24 24" class="bico"><path d="M4 8h13v5a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V8z" fill="currentColor"/><path d="M17 9h2a3 3 0 0 1 0 6h-2M7 5c0-1.5 1.5-1.5 1.5-3M11 5c0-1.5 1.5-1.5 1.5-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Abrir mesa de 4</button>
+        <button id="btnJoin" class="btn btn-blue btn-big">
+          <svg viewBox="0 0 24 24" class="bico"><path d="M13 4h6v16h-6M4 12h11m0 0-4-4m4 4-4 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Entrar numa mesa</button>
+      </div>
+      <button id="btnRulesHome" class="linklike enter d3">📜 Como se joga (regras de Portugal)</button>
+      <p class="foot-note enter d3">Quatro pessoas, quatro telemóveis no mesmo Wi-Fi. Uma máquina corre o anunciador (<code>node server.mjs</code>), os outros abrem o endereço e escolhem a mesa e a equipa. Sem internet e sem contas.</p>
+      <p class="foot-note enter d3">Instala nos telemóveis: no iPhone, Partilhar → “Adicionar ao ecrã principal”; no Android, menu ⋮ → “Instalar aplicação”.</p>
+    </section>
+
+    <!-- ══ ABRIR MESA ══ -->
+    <section id="screen-create" class="screen hidden">
+      <div class="card enter">
+        <h2 class="display sm">Abrir uma mesa</h2>
+        <label class="lbl" for="roomNameInput">Nome da mesa</label>
+        <input id="roomNameInput" class="input" maxlength="24" placeholder="ex.: Mesa do canto" autocomplete="off">
+        <button id="btnOpenRoom" class="btn btn-primary btn-big full">Anunciar mesa na rede</button>
+        <p class="help">Ficas logo sentado na Equipa Bica. Os outros três entram por Wi-Fi e escolhem o parceiro.</p>
+      </div>
+      <div id="hostWaiting" class="card hidden">
+        <p class="room-label">Código da mesa</p>
+        <h3 id="mesaBadge" class="mesa-badge"><b>—</b></h3>
+        <p class="help">Quem estiver no mesmo Wi-Fi abre este endereço e toca na tua mesa:</p>
+        <p id="shareUrl" class="share-url">—</p>
+        <button id="btnCopyUrl" class="btn btn-small full">Copiar endereço</button>
+        <p id="hostStatus" class="status">À espera de jogadores…</p>
+        <button class="btn btn-ghost btn-small full back-home">Fechar a mesa</button>
+      </div>
+    </section>
+
+    <!-- ══ ENTRAR ══ -->
+    <section id="screen-join" class="screen hidden">
+      <div class="card enter">
+        <h2 class="display sm">Entrar numa mesa</h2>
+        <label class="lbl" for="mesaInput">Código da mesa</label>
+        <div class="row-direct">
+          <input id="mesaInput" class="input" maxlength="4" placeholder="ex.: K645" autocapitalize="characters" autocomplete="off">
+          <button id="btnDirect" class="btn btn-primary">Entrar</button>
+        </div>
+        <p class="help">O código diz-to quem abriu a mesa. Se estiverem todos no mesmo Wi-Fi, a mesa aparece na lista em baixo e nem precisas de o escrever.</p>
+      </div>
+      <div class="card enter d1">
+        <div class="step-head"><span class="step-num">☕</span><h3>Mesas anunciadas</h3></div>
+        <div id="roomList"></div>
+        <p id="scanStatus" class="status"></p>
+        <button id="btnScanNet" class="btn btn-blue btn-small full">🔍 Procurar mesas noutras máquinas da rede</button>
+        <button class="btn btn-ghost btn-small full mt back-home">Voltar</button>
+      </div>
+    </section>
+
+    <!-- ══ SALA / EQUIPAS ══ -->
+    <section id="screen-lobby" class="screen hidden">
+      <div class="card enter">
+        <p class="room-label">Mesa <b id="lobbyCode">—</b></p>
+        <h2 id="lobbyRoomName" class="display sm">—</h2>
+        <div id="teamPick" class="team-pick"></div>
+        <div id="lobbyTeams" class="lobby-teams"></div>
+        <button id="btnReady" class="btn btn-primary btn-big full">Estou dentro ✓</button>
+        <div id="hostPanel" class="host-panel hidden">
+          <span class="lbl">Regras da casa</span>
+          <div id="rulesToggles" class="rules-toggles"></div>
+          <div id="targetRow" class="target-row"></div>
+          <button id="btnStart" class="btn btn-matcha btn-big full">Começar a jogar</button>
+        </div>
+        <p id="lobbyStatus" class="status"></p>
+        <button class="btn btn-ghost btn-small full leave-room">Sair da mesa</button>
+      </div>
+    </section>
+
+    <!-- ══ MESA ══ -->
+    <section id="screen-game" class="screen hidden">
+      <div class="score-strip card">
+        <div class="ss-team" id="ssMine"></div>
+        <div class="ss-mid">
+          <span class="ss-hand" id="ssHand">Mão 1</span>
+          <span class="ss-need" id="ssNeed">a 4 jogos</span>
+        </div>
+        <div class="ss-team" id="ssTheirs"></div>
+      </div>
+
+      <div id="turnBanner" class="turn-banner" aria-live="polite"></div>
+
+      <div class="table-frame">
+        <div class="table-felt" id="tableFelt">
+          <div class="seat seat-top" id="seatTop"></div>
+          <div class="seat seat-left" id="seatLeft"></div>
+          <div class="seat seat-right" id="seatRight"></div>
+          <div class="trick" id="trickArea">
+            <div class="trick-slot" data-pos="2" id="tsTop"></div>
+            <div class="trick-slot" data-pos="3" id="tsLeft"></div>
+            <div class="trick-center" id="trickCenter"></div>
+            <div class="trick-slot" data-pos="1" id="tsRight"></div>
+            <div class="trick-slot" data-pos="0" id="tsBottom"></div>
+          </div>
+          <div class="seat seat-bottom" id="seatBottom"></div>
+          <div class="turned" id="turnedTag" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="pane" id="handPane">
+        <div class="hand-head">
+          <span id="handHint" class="hand-hint">Toca numa carta para a jogar</span>
+          <span id="trumpChip" class="trump-wrap"></span>
+        </div>
+        <div id="hand" class="hand" aria-label="As tuas cartas"></div>
+      </div>
+
+      <div class="pane" id="logPane">
+        <div class="log-head">
+          <span class="log-title">Vazas</span>
+          <span class="log-seg" role="group" aria-label="O que mostrar no registo">
+            <button type="button" id="logLast" aria-pressed="true">Última</button>
+            <button type="button" id="logAll" aria-pressed="false">Todas</button>
+          </span>
+        </div>
+        <div id="trickLog" class="move-log" aria-label="Histórico de vazas"></div>
+      </div>
+
+      <div class="emote-row">
+        <button class="emote-btn" data-emote="☕" aria-label="Café">☕</button>
+        <button class="emote-btn" data-emote="👏" aria-label="Palmas">👏</button>
+        <button class="emote-btn" data-emote="😅" aria-label="Desculpa">😅</button>
+        <button class="emote-btn" data-emote="🔥" aria-label="Grande jogada">🔥</button>
+        <button class="emote-btn" data-emote="😱" aria-label="Ai, não">😱</button>
+        <button class="emote-btn" data-emote="🤝" aria-label="Boa parceria">🤝</button>
+      </div>
+
+      <div class="game-actions">
+        <button id="btnNextHand" class="btn btn-primary hidden">Mão seguinte</button>
+        <button id="btnRematch" class="btn btn-primary hidden">Nova partida</button>
+        <button id="btnRulesGame" class="btn btn-ghost">Regras</button>
+        <button id="btnLeave" class="btn btn-danger">Sair</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="modal" class="overlay hidden" role="dialog" aria-modal="true">
+  <div id="modalCard" class="card modal-card"></div>
+</div>
+<div id="toasts" aria-live="polite"></div>
+<div id="emoteLayer" aria-hidden="true"></div>
+
+<script src="vendor/avatars.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
