@@ -1,5 +1,4 @@
-node_modules/
-webapp_old/node_modules/
-.netlify/
-*.log
-.DS_Store
+.gradle/
+build/
+app/build/
+local.properties
