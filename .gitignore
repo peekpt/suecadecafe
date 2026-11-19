@@ -4,3 +4,6 @@ app/build/
 local.properties
 node_modules/
 .netlify/
+keystore.properties
+*.keystore
+*.jks

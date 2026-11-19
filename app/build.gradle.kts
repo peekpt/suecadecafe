@@ -1,9 +1,19 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose")
     id("org.jetbrains.kotlin.plugin.serialization")
 }
+
+// A chave de lançamento vive fora do repositório, apontada por keystore.properties
+// (gitignored). Sem esse ficheiro o `assembleRelease` sai sem assinar.
+val chave = Properties().apply {
+    val f = rootProject.file("keystore.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+val temChave = chave.getProperty("storeFile") != null
 
 android {
     namespace = "com.sueca.cafe"
@@ -19,9 +29,20 @@ android {
     buildFeatures {
         buildConfig = true
     }
+    signingConfigs {
+        if (temChave) {
+            create("sueca") {
+                storeFile = file(chave.getProperty("storeFile"))
+                storePassword = chave.getProperty("storePassword")
+                keyAlias = chave.getProperty("keyAlias")
+                keyPassword = chave.getProperty("keyPassword")
+            }
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
+            if (temChave) signingConfig = signingConfigs.getByName("sueca")
         }
     }
     compileOptions {

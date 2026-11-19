@@ -23,12 +23,19 @@ Precisa de JDK 17 e do Android SDK 36.
 
 ```
 ./gradlew testDebugUnitTest   # testes do motor, das mesas e da vista
-./gradlew assembleDebug       # APK em app/build/outputs/apk/debug/
+./gradlew assembleDebug       # APK de teste em app/build/outputs/apk/debug/
+./gradlew assembleRelease     # APK assinado em app/build/outputs/apk/release/
 ```
 
 `minSdk 26`. Os QR são gerados dentro do APK (`com.google.zxing:core`) e os
 tipos estão em `app/src/main/res/font`, por isso a app funciona sem nunca sair
 da rede local.
+
+Para o `assembleRelease` sair assinado é preciso um `keystore.properties` na
+raiz do projecto, com `storeFile`, `storePassword`, `keyAlias` e `keyPassword`
+a apontar para uma chave privada. Esse ficheiro e os keystore estão no
+`.gitignore`: a chave de lançamento nunca entra no repositório. Sem ele o
+release compila, mas fica sem assinatura.
 
 ## Estrutura
 
@@ -44,7 +51,7 @@ da rede local.
 
 ## Estado
 
-Versão 0.1: jogo completo a quatro dispositivos reais na mesma rede, com vaza
+Versão 0.1: jogo completo a quatro dispositivos na mesma rede, com vaza
 animada, trunfo virado junto ao dador, registo de vazas e pontuação por equipa.
-A app é assinada com a chave de debug; uma chave de lançamento própria é o
-próximo passo antes de distribuir actualizações por cima desta.
+O APK publicado na release está assinado com a chave de lançamento, por isso as
+actualizações passam a instalar-se por cima sem desinstalar primeiro.
